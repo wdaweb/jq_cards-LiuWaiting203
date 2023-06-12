@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JQ-卡片</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    #bg{
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('bg.jpg') no-repeat;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .card {
+      width: 50px;
+      height: 90px;
+      position: relative;
+      float: left;
+      margin: 10px;
+      /* 設定子元素在 3D 空間內 */
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+
+    .card-front{
+      width: 100%;
+      height: 100%;
+      background: url('./ba_cards/1.jpg') no-repeat center/contain;
+      position: absolute;
+      /* 隱藏背面 */
+      backface-visibility: hidden;
+    }
+
+    .card-back{
+      width: 100%;
+      height: 100%;
+      background: url('./ba_cards/cover.jpg') no-repeat center/contain;
+      position: absolute;
+      backface-visibility: hidden;
+      transform: rotateY(180deg);
+    }
+
+    .card-close{
+      transform: rotateY(180deg);
+    }
+
+    #game-bg {
+      margin: auto;
+      width: 1000px;
+      height: 560px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50px 50px;
+      position: relative;
+      top: 20px;
+      animation:glowing 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowing {
+      0% {
+        box-shadow: 0 0 30px #eee;
+      }
+
+      100% {
+        box-shadow: 0 0 30px #aaf;
+      }
+    }
+
+    #game{
+      width: 280px;
+      padding: 0px 30px;
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      transform: translate(-10%, -50%);
+      background: linear-gradient(-45deg, #eb8282bd, #00ffff3e);
+      border: 5px ridge #b3c3ff;
+      border-radius: 20px 20px;
+    }
+
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      position: absolute;
+      z-index: 99999;
+    }
+
+    @keyframes cursorAnim3 {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+
+    .expand {
+      animation: cursorAnim3 .3s forwards;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .content{
+      width: 350px;
+      height: 400px;
+      border-radius: 20px 20px;
+      padding: 10px;
+      background: rgba(255,255,255,0.2);
+      box-shadow: 0 0 10px #fff;
+      color: #fff;
+      font-size: 19px;
+      line-height: 30px;
+      font-family: '微軟正黑體';
+      position: absolute;
+      top: 50%;
+      left: 80%;
+      transform: translate(-80%, -50%);
+    }
+
+    .content img{
+      width: 100px;
+      height: 150px;
+      float: right;
+      margin: 15px;
+    }
+  </style>
+</head>
+<body>
+  <!-- <div class="card">
+    <div class="card-front"></div>
+    <div class="card-back"></div>
+  </div> -->
+
+<div class="cursor"></div>
+<ul class="fireflies">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+  <div id="bg">
+    <div id="game-bg">
+
+      <input type="button" value="音樂" id="btnBGM">
+      <input type="button" value="暫停" id="pauseBGM">
+
+
+      <div class="content"> 
+        <img src="./ba_cards/1.jpg">
+        <h3>阿慈谷日步美(阿慈谷ヒフミ)：</h3>
+        　　三一補課部的部長，一名感情豐富的少女，外貌和成績都不出眾，但為人圓滑且品性善良，很受人歡迎。<br>
+        　　在對策委員會和伊甸條約兩篇章都有關鍵戲份，甚至有專屬BGM《Hifumi Daisuki》，人稱「超級普通人」
+      </div>
+
+      <div class="content">
+        <img src="./ba_cards/2.jpg">
+        <h3>久田伊樹菜(久田イズナ)：</h3>
+        　　百鬼夜行聯合學園所屬，忍術研究部的少女。<br><br>
+
+        雖然是個性格開朗且充滿活力的少女，因為追求他人無法理解的夢想，至今為止都是一個人孤獨的成長。<br>
+        那個夢想就是「成為奇普托斯最強的忍者」。<br>
+        為了成為出色的忍者，今天也過著一邊稱老師為「主公！」一邊進行護衛(也可以單純說是跟著老師)的生活。  
+      </div>
+
+      <div class="content">
+        <img src="./ba_cards/3.jpg">
+        <h3>和樂知世(和楽くチセ)：</h3>
+        　　百鬼夜行聯合學園所屬，陰陽部的天然電波系少女。<br><br>
+
+        因為極其喜愛俳句之類的傳統文化而加入了陰陽部。<br>
+        由於外貌和舉止充滿著獨特的神秘氣息，因而成為百鬼夜行學生們羨慕的對象，但本人對此幾乎沒有自覺。
+      </div>
+
+      <div class="content">
+        <img src="./ba_cards/4.jpg">
+        <h3>桐藤渚(桐藤ナギサ)：</h3>
+        　　現役主席，聖子派的代表，因聖亞發生事故無法進駐茶會而遞補上位，在三人中最擅長政治權謀方面的操作。<br><br>
+        為了維護伊甸園條約的締結使用不少政治謀略，試圖驅逐或隔離可能的攪局者，本人也有自覺做的不是什麼光明事。<br>
+        過於謹慎的性格導致她對所有人都生有疑心，就連身邊最親近的人也不抱信任
+      </div>
+
+      <div class="content">
+        <img src="./ba_cards/5.jpg">
+        <h3>連河潔莉諾(連河チェリノ)：</h3>
+        　　赤冬聯邦學園所屬，蠻橫又孩子氣的學生會長。<br><br>
+
+            對權力的執著與慾望十分驚人，即使每週都因為革命而失勢，卻能不斷設法回到學生會長的寶座。<br>
+            貼在鼻子下面的鬍子據潔莉諾所說是「權威的象徵」、以及「所謂的權威就是由鬍子而來的」。
+      </div>
+
+      <div class="content">
+        <img src="./ba_cards/6.jpg">
+        <h3>春原旬(春原シュン)：</h3>
+        　　山海經高級中學所屬，培育支援部「梅花園」的教官。<br><br>
+
+        「梅花園」除了是園的名字之外也是社團的名字。個性善良且為人寬厚，除了梅花園的學生之外，也深得山海經其他學生的信任。<br>
+        由於擔任教官許久，就算年幼學生惡作劇也不太會生氣。唯獨只要有人提及自己的年紀，就會產生​敏感反應。
+      </div>
+
+      <div class="content">
+        <img src="./ba_cards/7.jpg">
+        <h3>聖園彌香(聖園ミカ)：</h3>
+        　　茶會三巨頭之一，聖父派的代表。<br><br>
+
+        直率，天真爛漫，雖然稱不上笨，但缺乏大局觀和政治意識。<br>
+        相反的擁有極強的個人戰力，有著單手破牆的怪力，實力最少與弦生並列或之上。<br>
+      </div>
+
+      <div class="content">
+        <img src="./ba_cards/8.jpg">
+        <h3>砂狼白子(砂狼シロコ)：</h3>
+        　　阿拜多斯高級中學所屬，換上了騎行用的正式裝束，阿拜多斯對策委員會的突擊隊長。<br><br>
+
+        脫下平常的制服，鼓起幹勁換上騎行服的她，總覺得看起來比平常還要開朗。目標雖然是誇張的「縱貫奇普托斯」，但不知是否因為有著值得信賴的夥伴，本人看來並沒有不安和擔心的樣子。
+      </div>
+
+      <div id="game"></div>
+    </div>
+  </div>
+  <audio src="./music.mp3" volume="0.3" id="bgm"></audio>
+  <audio src="./flip.mp3" volume=".3" id="flip"></audio>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js' integrity='sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==' crossorigin='anonymous'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.7.3/sweetalert2.all.min.js' integrity='sha512-/iBgV43zPirSC0tue+PT/1VHGs7En24twBmT+sVMgn9PTaOpKfbgIyL5YsGKlbAIxcwz9S8W/YEnYjpIYj2Axw==' crossorigin='anonymous'></script>
+  <script>
+    const bgm = document.getElementById('bgm')
+
+    function bgmStart(){
+      bgm.play()
+    }
+    
+    function bgmPause(){
+      bgm.pause()
+    }
+
+
+    $('#btnBGM').click(function(){
+      bgmStart()
+    })
+
+    $('#pauseBGM').click(function(){
+      bgmPause()
+    })
+
+
+    let mouseX = 0;
+    let mouseY = 0;
+    $(document).mousemove(function(event) {
+      mouseX = event.pageX;
+      mouseY = event.pageY;
+    });
+
+    const flip = document.getElementById('flip')
+    // 產生 16 張卡片
+    for (let i = 0; i < 16; i++){
+      $('#game').append(`
+        <div class="card card-close">
+          <div class="card-front"></div>
+          <div class="card-back"></div>
+        </div>
+      `)
+    }
+    // 決定每張的數字
+    for (let i = 0; i < 16; i++){
+      const num = i % 8 + 1
+      $('.card').eq(i).find('.card-front').css('background', `url(./ba_cards/${num}.jpg) no-repeat center/contain` )
+      $('.card').eq(i).attr('data-card', num)
+      // 打亂
+      const target = Math.round(Math.random() * 15)
+      $('.card').eq(target).insertAfter($('.card').eq(i))
+    }
+
+    $('.content').hide()
+    $('#game').on('click', '.card', function(){
+      flip.play()
+      if (
+        // 如果還沒翻開兩張
+        $('.card:not(.card-close)').length < 2 &&
+        // 且這張牌還沒翻開
+        $(this).hasClass('card-close') &&
+        // 且這張牌還沒配對
+        !$(this).hasClass('card-ok')
+      ) {
+        // 符合才翻開
+        $(this).removeClass('card-close')
+      }
+      console.log($('.card:not(.card-close)').length)
+      
+      // 如果翻開兩張了
+      if ($('.card:not(.card-close)').length === 2) {
+        // 檢查數字
+        if (
+          $('.card:not(.card-close)').eq(0).attr('data-card') ===
+          $('.card:not(.card-close)').eq(1).attr('data-card')
+          ) {
+            flip.play()
+            $('.card:not(.card-close)').addClass('card-ok')
+            $('.card:not(.card-close)').fadeTo(1000, 0)
+            $('.content').eq(parseInt($('.card:not(.card-close)').eq(0).attr('data-card'))-1).show().fadeTo(10000,0)
+      }
+    
+
+    // 不管數字是否一樣都翻回來
+    setTimeout(function () {
+      $('.card:not(.card-close)').addClass('card-close')
+      if ($('.card-ok').length === $('.card').length) {
+        Swal.fire({
+          icon: 'success',
+          title: '恭喜',
+          text: '恭喜過關'
+        })
+      }
+    }, 1000)
+  }
+    const cursor = $('.cursor');
+      cursor.removeClass('expand');
+      cursor.css({ top: mouseY, left: mouseX });
+      setTimeout(() => {
+        cursor.addClass('expand');
+        }, 10);
+    })
+
+  </script>
+</body>
+</html>
